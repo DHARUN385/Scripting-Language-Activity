@@ -1,0 +1,17 @@
+function cancellable(fn, args, t) {
+    let intervalId;
+    const resultLog = [];
+
+    const startTime = Date.now();
+    resultLog.push({ time: 0, returned: fn(...args) });
+
+    intervalId = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        resultLog.push({ time: elapsed, returned: fn(...args) });
+    }, t);
+
+    return function cancelFn() {
+        clearInterval(intervalId);
+    }
+};
+
