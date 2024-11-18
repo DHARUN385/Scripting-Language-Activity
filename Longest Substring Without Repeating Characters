@@ -1,0 +1,16 @@
+def length_of_longest_substring(s)
+  max_length = 0
+  start_idx = 0
+  seen = {}
+
+  s.chars.each_with_index do |char, idx|
+    if seen.key?(char) && seen[char] >= start_idx
+      start_idx = seen[char] + 1
+    end
+
+    seen[char] = idx
+    max_length = [max_length, idx - start_idx + 1].max
+  end
+
+  max_length
+end
