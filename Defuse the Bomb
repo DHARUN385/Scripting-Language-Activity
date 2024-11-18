@@ -1,0 +1,20 @@
+var decrypt = function(code, k) {
+    
+    const n = code.length;
+    if (k === 0) {
+        return new Array(n).fill(0);
+    }
+
+    const result = new Array(n);
+    const extendedCode = [...code, ...code];
+    for (let i = 0; i < n; i++) {
+        if (k > 0) {
+            result[i] = extendedCode.slice(i + 1, i + k + 1).reduce((sum, num) => sum + num, 0);
+        } else {
+            result[i] = extendedCode.slice(i + n + k, i + n).reduce((sum, num) => sum + num, 0);
+        }
+    }
+
+    return result;
+
+};
